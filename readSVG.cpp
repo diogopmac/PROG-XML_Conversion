@@ -33,20 +33,20 @@ namespace svg
                     int cy = child->IntAttribute("cy");
                     int rx = child->IntAttribute("rx");
                     int ry = child->IntAttribute("ry"); 
-                    std::string fill = child->Attribute("fill");
+                    string fill = child->Attribute("fill");
                     Color fillColor = parse_color(fill);
 
-                    SVGElement* ellipse = new svg::Ellipse(fillColor, Point{cx, cy}, rx, ry); 
+                    SVGElement* ellipse = new Ellipse(fillColor, Point{cx, cy}, rx, ry); 
                     svg_elements.push_back(ellipse);
             }
             else if (elementName == "circle"){
                     int cx = child->IntAttribute("cx");
                     int cy = child->IntAttribute("cy");
-                    double r = child->IntAttribute("r");
-                std::string fill = child->Attribute("fill");
-                Color fillColor = parse_color(fill);
+                    int r = child->IntAttribute("r");
+                    string fill = child->Attribute("fill");
+                    Color fillColor = parse_color(fill);
 
-                    SVGElement* circle = new svg::Circle(fillColor, Point{cx,cy}, r);
+                    SVGElement* circle = new Circle(fillColor, Point{cx,cy}, r);
                     svg_elements.push_back(circle);
             }
             else if (elementName == "polyline") {
@@ -85,6 +85,11 @@ namespace svg
                 int height = child->IntAttribute("height");
                 std::string fill = child->Attribute("fill");
                 Color fillColor = parse_color(fill);
+
+                cout << "Point 1: " << x << " " << y << endl;
+                cout << "Point 2: " << x+width << " " << y << endl;
+                cout << "Point 3: " << x+width << " " << y+height << endl;
+                cout << "Point 4: " << x << " " << y+height << endl; 
 
                 SVGElement* rect = new Rect(fillColor, x, y, width, height);
                 svg_elements.push_back(rect);

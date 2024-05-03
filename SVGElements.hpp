@@ -35,7 +35,7 @@ namespace svg
         Ellipse(const Color &fill, const Point &center, const int radius_x, const int radius_y);
         void draw(PNGImage &img) const override;
 
-    private:
+    protected:
         Color fill;
         Point center;
         int radius_x;
@@ -46,13 +46,9 @@ namespace svg
     class Circle : public Ellipse 
     {
         public:
-            Circle(const Color &fill, const Point &center, const int radius); 
+            Circle(const Color &fill, const Point &center, const int radius_x); 
             //WARNING: Circle is derived of Ellipse, when doing constructor get the default constructor from Ellipse
             void draw(PNGImage &img) const override;
-        private:
-            Color fill;
-            Point center;
-            int radius;
     };
 
     class Polyline : public SVGElement {
@@ -78,18 +74,15 @@ namespace svg
         public:
             Polygon(const Color &fill, const std::vector<Point>& points);
             void draw(PNGImage &img) const override;
-        private:
+        protected:
             Color fill;
             std::vector<Point> points;
     };
 
     class Rect : public Polygon{
         public:
-            Rect(const Color &fill, const int x, const int y, const int width, const int height);
+            Rect(const Color &fill, int x, int y, int width, int height);
             void draw(PNGImage &img) const override;
-        private:
-            Color fill;
-            int x, y, width, height;
     };
 
 }

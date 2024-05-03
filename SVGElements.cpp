@@ -41,7 +41,7 @@ namespace svg
     
     void Circle::draw(PNGImage &img) const
     {
-        img.draw_ellipse(center, Point{radius, radius}, fill);
+        img.draw_ellipse(center, Point{radius_x, radius_x}, fill);
         //Same with draw. Same functions, but the only difference between circle and Ellipse is that
         //An Ellipse has 2 radiuses and Circle only has one, hence Center.x = Center.y in Circle calls.
     }
@@ -72,14 +72,14 @@ namespace svg
     }
 
     Rect::Rect(const Color &fill,
-               const int x, 
-               const int y, 
-               const int width, 
-               const int height) 
-        : Polygon(fill, {Point{x,y}, Point{x+width, y}, Point{x+width, y-height}, Point{x, y-height}}) {}
+               int x,
+               int y,
+               int width,
+               int height) 
+        : Polygon(fill, {Point{x,y}, Point{x+width-1, y}, Point{x+width-1, y+height-1}, Point{x, y+height-1}}) {}
     
     void Rect::draw(PNGImage &img) const {
-        img.draw_polygon({Point{x,y}, Point{x+width, y}, Point{x+width, y-height}, Point{x, y-height}}, fill);
+        img.draw_polygon(points, fill);
     }
     // @todo provide the implementation of SVGElement derived classes
     // HERE -->
