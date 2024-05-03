@@ -46,20 +46,20 @@ namespace svg
         //An Ellipse has 2 radiuses and Circle only has one, hence Center.x = Center.y in Circle calls.
     }
 
-    Polyline::Polyline(const Color &fill, 
+    Polyline::Polyline(const Color &stroke, 
                        const std::vector<Point>& points) 
-        : fill(fill), points(points){}
+        : stroke(stroke), points(points){}
     
     void Polyline::draw(PNGImage &img) const {
-        for (size_t i = 0; i < points.size(); i++){
-            img.draw_line(points[i-1], points[i], fill);
+        for (size_t i = 1; i < points.size(); i++){
+            img.draw_line(points[i-1], points[i], stroke);
         }
     }
 
-    Line::Line(const Color &fill, const Point& a, const Point& b) : Polyline(fill, std::vector<Point>{a,b}){}
+    Line::Line(const Color &stroke, const int x1, const int y1, const int x2, const int y2) : Polyline(stroke, {Point{x1,y1},Point{x2,y2}}){}
     
     void Line::draw(PNGImage &img) const {
-        img.draw_line(a, b, fill);
+        img.draw_line(points[0], points[1] , stroke);
     }
 
     Polygon::Polygon(const Color &fill, 

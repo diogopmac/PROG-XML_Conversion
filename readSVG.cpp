@@ -66,7 +66,10 @@ namespace svg
                     std::string stroke = child->Attribute("stroke");
                     Color strokeColor = parse_color(stroke);
 
-                    SVGElement* line = new Line(strokeColor, Point{x1, y1}, Point{x2, y2} );
+                    cout << "Point 1: " << "{" << x1 << ", " << y1 << "}" << endl;
+                    cout << "Point 2: " << "{" << x2 << ", " << y2 << "}" << endl;
+
+                    SVGElement* line = new Line(strokeColor, x1,y1,x2,y2);
                     svg_elements.push_back(line);
             }
             else if (elementName == "polygon") {
@@ -85,11 +88,6 @@ namespace svg
                 int height = child->IntAttribute("height");
                 std::string fill = child->Attribute("fill");
                 Color fillColor = parse_color(fill);
-
-                cout << "Point 1: " << x << " " << y << endl;
-                cout << "Point 2: " << x+width << " " << y << endl;
-                cout << "Point 3: " << x+width << " " << y+height << endl;
-                cout << "Point 4: " << x << " " << y+height << endl; 
 
                 SVGElement* rect = new Rect(fillColor, x, y, width, height);
                 svg_elements.push_back(rect);
