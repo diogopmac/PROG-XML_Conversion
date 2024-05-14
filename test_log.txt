@@ -1,12 +1,100 @@
->>>> [1] scale_circle <<<<
->>>> [2] scale_circle_with_origin <<<<
->>>> [3] scale_ellipse <<<<
->>>> [4] scale_ellipse_with_origin <<<<
->>>> [5] scale_line <<<<
->>>> [6] scale_line_with_origin <<<<
->>>> [7] scale_polygon <<<<
->>>> [8] scale_polygon_with_origin <<<<
->>>> [9] scale_polyline <<<<
->>>> [10] scale_polyline_with_origin <<<<
->>>> [11] scale_rect <<<<
->>>> [12] scale_rect_with_origin <<<<
+>>>> [1] group_1 <<<<
+Error circle
+circle 
+Error circle
+circle 
+Here 
+>>>> [2] group_2 <<<<
+Error circle
+circle 
+Error circle
+circle 
+Here 
+pixel (0 25): expected 255 0 0 got 255 255 255
+>>>> [3] group_3 <<<<
+Error circle
+circle 
+Error circle
+circle 
+Error circle
+circle 
+Error circle
+circle 
+Error polygon
+Here 
+pixel (0 250): expected 255 255 255 got 255 0 0
+>>>> [4] group_4 <<<<
+Error g
+Error circle
+circle 
+Error circle
+circle 
+Error circle
+circle 
+Error circle
+circle 
+Error polygon
+Here 
+convert.cpp:15:20: runtime error: member call on null pointer of type 'struct SVGElement'
+convert.cpp:15:20: runtime error: member access within null pointer of type 'struct SVGElement'
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==3770==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55ba6de23011 bp 0x7ffe72e2fa70 sp 0x7ffe72e2f8c0 T0)
+==3770==The signal is caused by a READ memory access.
+==3770==Hint: address points to the zero page.
+    #0 0x55ba6de23011 in svg::convert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/convert.cpp:15
+    #1 0x55ba6ddc3633 in svg::TestDriver::run_conversion_test(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x143633)
+    #2 0x55ba6ddc5767 in svg::TestDriver::run_test(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x145767)
+    #3 0x55ba6ddc6dd2 in svg::TestDriver::run_tests(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x146dd2)
+    #4 0x55ba6ddc27b5 in main /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test.cpp:181
+    #5 0x7f87b9fdbd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7f87b9fdbe3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x55ba6ddc2374 in _start (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x142374)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/convert.cpp:15 in svg::convert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+==3770==ABORTING
+>>>> [5] group_5 <<<<
+Error g
+Error circle
+circle 
+Error circle
+circle 
+Error circle
+circle 
+Error g
+Error polygon
+Error g
+Error polygon
+Here 
+convert.cpp:15:20: runtime error: member call on null pointer of type 'struct SVGElement'
+convert.cpp:15:20: runtime error: member access within null pointer of type 'struct SVGElement'
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==3771==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55ba6de23011 bp 0x7ffe72e2fa70 sp 0x7ffe72e2f8c0 T0)
+==3771==The signal is caused by a READ memory access.
+==3771==Hint: address points to the zero page.
+    #0 0x55ba6de23011 in svg::convert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/convert.cpp:15
+    #1 0x55ba6ddc3633 in svg::TestDriver::run_conversion_test(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x143633)
+    #2 0x55ba6ddc5767 in svg::TestDriver::run_test(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x145767)
+    #3 0x55ba6ddc6dd2 in svg::TestDriver::run_tests(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x146dd2)
+    #4 0x55ba6ddc27b5 in main /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test.cpp:181
+    #5 0x7f87b9fdbd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7f87b9fdbe3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x55ba6ddc2374 in _start (/mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/test+0x142374)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /mnt/c/Users/anton/Desktop/FEUP/PROG/prog24/convert.cpp:15 in svg::convert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+==3771==ABORTING
+>>>> [6] group_6 <<<<
+Error polyline
+Here 
+pixel (20 220): expected 0 0 255 got 255 255 255
+>>>> [7] group_7 <<<<
+Error rect
+Error rect
+Error rect
+Error rect
+hi
+Here 
+pixel (36 80): expected 255 0 0 got 255 255 255
