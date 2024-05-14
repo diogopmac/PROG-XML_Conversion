@@ -1,5 +1,6 @@
 #include "SVGElements.hpp"
 #include <sstream>
+#include <iostream>
 
 namespace svg
 {
@@ -7,7 +8,10 @@ namespace svg
     SVGElement::SVGElement() {}
     SVGElement::~SVGElement() {}
 
-    std::vector<Point> parse_points(std::string& point_string){ //COMPLETAR
+    /// @brief Function to parse a string of int values separated by a comma, and put it in a vector of Point{x, y}
+    /// @param point_string String of different points, of the type "x,y x,y, x,y"
+    /// @return returns a vector of Point values
+    std::vector<Point> parse_points(std::string& point_string){
         std::vector<Point> ret;
         std::istringstream iss(point_string);
         int x,y;
@@ -19,7 +23,21 @@ namespace svg
         return ret;
     }
 
-    // Ellipse (initial code provided)
+    void remove_commas(std::string& str){
+        for (char &c : str)
+        {
+            if (c == ',')
+            {
+                c = ' ';
+            }
+        }
+    }
+
+    /// @brief Ellipse Constructor
+    /// @param fill Fill Color
+    /// @param center Ellipse center
+    /// @param radius_x Radius in X-Axis
+    /// @param radius_y Radius in Y-Axis
     Ellipse::Ellipse(const Color &fill,
                      const Point &center,
                      const int radius_x, 
@@ -27,32 +45,90 @@ namespace svg
         : fill(fill), center(center), radius_x(radius_x), radius_y(radius_y)
     {
     }
+
+    /// @brief Ellipse draw function, provided
+    /// @param img PNG Image 
     void Ellipse::draw(PNGImage &img) const
     {
         img.draw_ellipse(center, Point{radius_x, radius_y}, fill);
     }
 
+    //Ellipse Translate Tranformation
+    //!@param x X-Axis deviation
+    //!@param y Y-Axis deviation
+    void Ellipse::translate(int x, int y) 
+    {
+        center.x += x;
+        center.y += y;
+    }
+
+    /// @brief Ellipse Rotation Transformation
+    /// @param origin_x Rotation Origin, X-Axis
+    /// @param origin_y Rotation Origin, Y-Axis
+    /// @param angle Rotation Angle, in degrees 
+    void Ellipse::rotate(int origin_x, int origin_y, int angle) 
+    {
+        Point rotate_origin = Point{origin_x, origin_x};
+        center = center.rotate(rotate_origin, angle);
+    }
+
+    void Ellipse::scale(int origin_x, int origin_y, int value) {
+        Point scale_origin = Point{origin_x, origin_y};
+        center = center.scale(scale_origin, value);
+        radius_x = radius_x*value;
+        radius_y = radius_y*value;
+    }
+
+    /// @brief Circle constructor, subclass of Ellipse
+    /// @param fill Fill Color
+    /// @param center Circle Center
+    /// @param radius Circle Radius
     Circle::Circle(const Color &fill,
                    const Point &center, 
                    const int radius) 
         : Ellipse(fill, center, radius, radius) {} 
-    //Constructors are equal, but in readSVG.cpp, when a circle is found, call Circle with (fill, center, {r, r})
-    //Where r is the radius found in XML child node.
     
     void Circle::draw(PNGImage &img) const
     {
         img.draw_ellipse(center, Point{radius_x, radius_x}, fill);
-        //Same with draw. Same functions, but the only difference between circle and Ellipse is that
-        //An Ellipse has 2 radiuses and Circle only has one, hence Center.x = Center.y in Circle calls.
+        // Comentar sobre isto depois (Point{radius_x, radius_x})
     }
 
     Polyline::Polyline(const Color &stroke, 
                        const std::vector<Point>& points) 
         : stroke(stroke), points(points){}
     
-    void Polyline::draw(PNGImage &img) const {
-        for (size_t i = 1; i < points.size(); i++){
+    void Polyline::draw(PNGImage &img) const 
+    {
+        for (size_t i = 1; i < points.size(); i++)
+        {
             img.draw_line(points[i-1], points[i], stroke);
+        }
+    }
+
+    void Polyline::translate(int x, int y) 
+    {
+        for(Point& point : points){
+            point.x += x;
+            point.y += y;
+        }
+    }
+
+    void Polyline::rotate(int origin_x, int origin_y, int angle)  
+    {
+        Point origin = Point{origin_x, origin_y};
+        std::vector<Point> nPoints;
+        for(Point& point : points) 
+        {
+            point = point.rotate(origin, angle);
+        }
+    }
+
+    void Polyline::scale(int origin_x, int origin_y, int value) 
+    {
+        Point origin = Point{origin_x, origin_y};
+        for(Point& point : points){
+            point = point.scale(origin, value);
         }
     }
 
@@ -69,6 +145,29 @@ namespace svg
 
     void Polygon::draw(PNGImage &img) const {
         img.draw_polygon(points, fill);
+    }
+
+    void Polygon::translate(int x, int y)  
+    {
+        for(Point& point : points){
+            point.x+=x;
+            point.y+=y;
+        }
+    }
+    void Polygon::rotate(int origin_x, int origin_y, int angle)  
+    {
+        Point origin = Point{origin_x, origin_y};
+        for(Point& point : points) 
+        {
+            point = point.rotate(origin, angle);
+        }
+    }
+    void Polygon::scale(int origin_x, int origin_y, int value)  
+    {
+        Point origin = Point{origin_x, origin_y};
+        for(Point& point : points){
+            point = point.scale(origin, value);
+        }
     }
 
     Rect::Rect(const Color &fill,

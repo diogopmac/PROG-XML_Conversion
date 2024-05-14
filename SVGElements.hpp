@@ -15,6 +15,9 @@ namespace svg
         SVGElement();
         virtual ~SVGElement();
         virtual void draw(PNGImage &img) const = 0;
+        virtual void translate(int x, int y) = 0;
+        virtual void rotate(int origin_x, int origin_y, int angle) = 0;
+        virtual void scale(int origin_x, int origin_y, int value) = 0;
     };
 
     // Declaration of namespace functions
@@ -22,6 +25,8 @@ namespace svg
     // convert -> already given (DO NOT CHANGE) in convert.cpp
 
     std::vector<Point> parse_points(std::string& point_string);
+
+    void remove_commas(std::string& str);
 
     void readSVG(const std::string &svg_file,
                  Point &dimensions,
@@ -34,7 +39,9 @@ namespace svg
     public:
         Ellipse(const Color &fill, const Point &center, const int radius_x, const int radius_y);
         void draw(PNGImage &img) const override;
-
+        void translate(int x, int y) override;
+        void rotate(int origin_x, int origin_y, int angle) override;
+        void scale(int origin_x, int origin_y, int value) override;
     protected:
         Color fill;
         Point center;
@@ -55,6 +62,9 @@ namespace svg
         public:
             Polyline(const Color &stroke, const std::vector<Point>& points);
             void draw(PNGImage &img) const override;
+            void translate(int x, int y) override;
+            void rotate(int origin_x, int origin_y, int angle) override;
+            void scale(int origin_x, int origin_y, int value) override;
         protected:
             Color stroke;
             std::vector<Point> points;
@@ -70,6 +80,9 @@ namespace svg
         public:
             Polygon(const Color &fill, const std::vector<Point>& points);
             void draw(PNGImage &img) const override;
+            void translate(int x, int y) override;
+            void rotate(int origin_x, int origin_y, int angle) override;
+            void scale(int origin_x, int origin_y, int value) override;
         protected:
             Color fill;
             std::vector<Point> points;
