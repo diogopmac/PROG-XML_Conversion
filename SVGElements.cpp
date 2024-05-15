@@ -13,10 +13,10 @@ namespace svg
     /// @return returns a vector of Point values
     std::vector<Point> parse_points(std::string& point_string){
         std::vector<Point> ret;
+        remove_commas(point_string);
         std::istringstream iss(point_string);
         int x,y;
-        char c;
-        while (iss >> x >> c >> y){
+        while (iss >> x  >> y){
             Point a = Point{x,y};
             ret.push_back(a);
         }
@@ -179,7 +179,7 @@ namespace svg
     
     void Rect::draw(PNGImage &img) const {
         img.draw_polygon(points, fill);
-    }
+    } 
     // @todo provide the implementation of SVGElement derived classes
     // HERE -->
 
