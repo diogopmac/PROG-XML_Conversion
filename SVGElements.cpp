@@ -79,6 +79,11 @@ namespace svg
         radius_y = radius_y*value;
     }
 
+    SVGElement *Ellipse::duplicate(std::string id, SVGElement *elem){
+        Ellipse *new_ellipse = new Ellipse(*dynamic_cast<Ellipse*>(elem));
+        return new_ellipse;
+    }
+
     /// @brief Circle constructor, subclass of Ellipse
     /// @param fill Fill Color
     /// @param center Circle Center
@@ -132,6 +137,11 @@ namespace svg
         }
     }
 
+    SVGElement *Polyline::duplicate(std::string id, SVGElement *elem){
+        Polyline *new_polyline = new Polyline(*dynamic_cast<Polyline*>(elem));
+        return new_polyline;
+    }
+
     Line::Line(const Color &stroke, const int x1, const int y1, const int x2, const int y2) : Polyline(stroke, {Point{x1,y1},Point{x2,y2}}){}
     
     void Line::draw(PNGImage &img) const {
@@ -170,6 +180,11 @@ namespace svg
         }
     }
 
+    SVGElement *Polygon::duplicate(std::string id, SVGElement *elem){
+        Polygon *new_polygon = new Polygon(*dynamic_cast<Polygon*>(elem));
+        return new_polygon;
+    }
+
     Rect::Rect(const Color &fill,
                int x,
                int y,
@@ -205,6 +220,11 @@ namespace svg
         for(SVGElement *elem : elements){
             elem->scale(origin_x, origin_y, value);
         }
+    }
+
+    SVGElement *Group::duplicate(std::string id, SVGElement *elem){
+        Group *new_group = new Group(*dynamic_cast<Group*>(elem));
+        return new_group;
     }
 
     // @todo provide the implementation of SVGElement derived classes

@@ -18,6 +18,7 @@ namespace svg
         virtual void translate(int x, int y) = 0;
         virtual void rotate(int origin_x, int origin_y, int angle) = 0;
         virtual void scale(int origin_x, int origin_y, int value) = 0;
+        virtual SVGElement *duplicate(std::string id, SVGElement *elem) = 0;
     };
 
     // Declaration of namespace functions
@@ -38,10 +39,12 @@ namespace svg
     {
     public:
         Ellipse(const Color &fill, const Point &center, const int radius_x, const int radius_y);
+        Ellipse(const Ellipse& copy) : SVGElement(copy), fill(copy.fill), center(copy.center), radius_x(copy.radius_x), radius_y(copy.radius_y){}
         void draw(PNGImage &img) const override;
         void translate(int x, int y) override;
         void rotate(int origin_x, int origin_y, int angle) override;
         void scale(int origin_x, int origin_y, int value) override;
+        SVGElement *duplicate(std::string id, SVGElement *elem) override;
     protected:
         Color fill;
         Point center;
@@ -61,10 +64,12 @@ namespace svg
     class Polyline : public SVGElement {
         public:
             Polyline(const Color &stroke, const std::vector<Point>& points);
+            Polyline(const Polyline& copy) : SVGElement(copy), stroke(copy.stroke), points(copy.points) {}
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
             void scale(int origin_x, int origin_y, int value) override;
+            SVGElement *duplicate(std::string id, SVGElement *elem) override;
         protected:
             Color stroke;
             std::vector<Point> points;
@@ -79,10 +84,12 @@ namespace svg
     class Polygon : public SVGElement{
         public:
             Polygon(const Color &fill, const std::vector<Point>& points);
+            Polygon(const Polygon& copy) : SVGElement(copy), fill(copy.fill), points(copy.points) {}
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
             void scale(int origin_x, int origin_y, int value) override;
+            SVGElement *duplicate(std::string id, SVGElement *elem) override;
         protected:
             Color fill;
             std::vector<Point> points;
@@ -97,10 +104,12 @@ namespace svg
     class Group : public SVGElement {
         public:
             Group(std::vector<SVGElement *> elements);
+            Group(const Group& copy) : SVGElement(copy), elements(copy.elements) {}
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
             void scale(int origin_x, int origin_y, int value) override;
+            SVGElement *duplicate(std::string id, SVGElement *elem) override;
         private:
             std::vector<SVGElement *> elements;
 

@@ -9,7 +9,7 @@ using namespace tinyxml2;
 
 namespace svg
 {
-    std::vector<SVGElement *> parseGroup(XMLElement* child, vector<SVGElement *>& elements, const char* transform){
+    std::vector<SVGElement *> parseGroup(XMLElement* child, vector<SVGElement *>& elements){
 
         while (child != nullptr){
             std::string elementName = child->Name();
@@ -75,7 +75,7 @@ namespace svg
             } 
             else if(elementName == "g") {
                 std::vector<SVGElement *> elements;
-                elements = parseGroup(child->FirstChildElement(), elements, child->Attribute("transform"));
+                elements = parseGroup(child->FirstChildElement(), elements);
                 element = new Group(elements);
             }
 
@@ -153,6 +153,8 @@ namespace svg
 
         dimensions.x = xml_elem->IntAttribute("width");
         dimensions.y = xml_elem->IntAttribute("height");
+
+        std::vector<std::pair<std::string, SVGElement *>> id_pair;
         
         XMLElement *child = xml_elem->FirstChildElement(); //Changed from svg_elem
 
@@ -221,8 +223,17 @@ namespace svg
             } 
             else if(elementName == "g") {
                 std::vector<SVGElement *> elements;
-                elements = parseGroup(child->FirstChildElement(), elements, child->Attribute("transform"));
+                elements = parseGroup(child->FirstChildElement(), elements);
                 element = new Group(elements);
+            }
+            else if(elementName == "use"){
+                std::string href = child->Attribute("href");
+                href = href.substr(1);
+                for(auto& pair : id_pair){
+                    if (pair.first == href){
+                        element = pair.second->duplicate(href, pair.second);
+                    }
+                }
             }
             if(child == nullptr) return;
             
@@ -283,6 +294,13 @@ namespace svg
                     }
 
             //push back
+        if (child->Attribute("id")){
+            std::string id = child->Attribute("id");
+            id_pair.push_back({id, element});
+        }
+        for(auto& i : id_pair){
+            cout << i.first << endl;
+        }
         svg_elements.push_back(element);
         child = child->NextSiblingElement();
                 
