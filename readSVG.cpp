@@ -9,7 +9,7 @@ using namespace tinyxml2;
 
 namespace svg
 {
-    XMLElement* parseGroup(XMLElement* child, vector<SVGElement *>& svg_elements, const char* transform){
+    std::vector<SVGElement *> parseGroup(XMLElement* child, vector<SVGElement *>& elements, const char* transform){
 
         while (child != nullptr){
             std::string elementName = child->Name();
@@ -74,7 +74,9 @@ namespace svg
                 element = new Rect(fillColor, x, y, width, height);
             } 
             else if(elementName == "g") {
-                child = parseGroup(child->FirstChildElement(), svg_elements, child->Attribute("transform"));
+                std::vector<SVGElement *> elements;
+                elements = parseGroup(child->FirstChildElement(), elements, child->Attribute("transform"));
+                element = new Group(elements);
             }
 
             //transf
@@ -131,65 +133,11 @@ namespace svg
                             element->scale(origin.x, origin.y, factor);
                         }
             }
-            if (transform){
-                        //!@param tr Transformação do elemento
-                        string tr = transform;
-                        
-                        int ox = 0;
-                        int oy = 0; //default origin values
-
-                        Point origin = Point{ox, oy};
-
-                        if (child->Attribute("transform-origin")){
-                            string origin_str = child->Attribute("transform-origin");
-                            istringstream iss(origin_str);
-                            int x, y;
-                            iss >> x >> y;
-
-                            origin.x = x;
-                            origin.y = y;
-                        }
-
-                        if(tr.find("translate")!= string::npos){
-                            istringstream iss(tr);
-                            int x, y;
-                            char ch;
-
-                            iss.ignore(tr.size(), '(');
-                            iss >> x;
-                            if (iss.peek() == ',') iss >> ch;
-                            iss  >> y;
-
-
-                            element->translate(x, y);
-                        }
-                        else if(tr.find("rotate") != string::npos){
-                            istringstream iss(tr);
-
-                            iss.ignore(tr.size(), '(');
-                            int angle;
-                            iss >> angle;
-
-                            
-
-                            element->rotate(origin.x, origin.y, angle);
-                        }
-                        else if(tr.find("scale") != string::npos){
-                            istringstream iss(tr);
-
-                            iss.ignore(tr.size(), '(');
-                            int factor;
-                            iss >> factor;
-
-                            element->scale(origin.x, origin.y, factor);
-                        }
-                    }
-
             //push back
-            svg_elements.push_back(element);
+            elements.push_back(element);
             child = child->NextSiblingElement();
         }
-        return child;
+        return elements;
     }
 
 
@@ -272,11 +220,12 @@ namespace svg
                 element = new Rect(fillColor, x, y, width, height);
             } 
             else if(elementName == "g") {
-                child = parseGroup(child->FirstChildElement(),  svg_elements, child->Attribute("transform"));
-                cout << "Here " << endl;
+                std::vector<SVGElement *> elements;
+                elements = parseGroup(child->FirstChildElement(), elements, child->Attribute("transform"));
+                element = new Group(elements);
             }
             if(child == nullptr) return;
-        
+            
             //transf
             if (child->Attribute("transform")){
                         //!@param tr Transformação do elemento

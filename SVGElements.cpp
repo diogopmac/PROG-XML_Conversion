@@ -180,6 +180,33 @@ namespace svg
     void Rect::draw(PNGImage &img) const {
         img.draw_polygon(points, fill);
     } 
+
+    Group::Group(std::vector<SVGElement *> elements) : elements(elements) {};
+
+    void Group::draw(PNGImage &img) const{
+        for(SVGElement *elem : elements){
+            elem->draw(img);
+        }
+    }
+
+    void Group::translate(int x, int y){
+        for(SVGElement *elem : elements){
+            elem->translate(x,y);
+        }
+    }
+
+    void Group::rotate(int origin_x, int origin_y, int angle){
+        for(SVGElement *elem : elements){
+            elem->rotate(origin_x, origin_y, angle);
+        }
+    }
+
+    void Group::scale(int origin_x, int origin_y, int value){
+        for(SVGElement *elem : elements){
+            elem->scale(origin_x, origin_y, value);
+        }
+    }
+
     // @todo provide the implementation of SVGElement derived classes
     // HERE -->
 
