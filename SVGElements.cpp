@@ -8,8 +8,8 @@ namespace svg
     SVGElement::SVGElement() {}
     SVGElement::~SVGElement() {}
 
-    /// @brief Function to parse a string of int values separated by a comma, and put it in a vector of Point{x, y}
-    /// @param point_string String of different points, of the type "x,y x,y, x,y"
+    /// @brief Function to parse a string of int values separated by a blank space, and put it in a vector of Point{x, y}
+    /// @param point_string String of different points, of the type "x y x y x y"
     /// @return returns a vector of Point values
     std::vector<Point> parse_points(std::string& point_string){
         std::vector<Point> ret;
@@ -23,6 +23,8 @@ namespace svg
         return ret;
     }
 
+    /// @brief Removes commas of a given string. Used in point parsing.
+    /// @param str Given string
     void remove_commas(std::string& str){
         for (char &c : str)
         {

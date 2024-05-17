@@ -180,9 +180,6 @@ namespace svg
         XMLElement *child = xml_elem->FirstChildElement(); //Changed from svg_elem
 
         while (child != nullptr){
-            
-            //!@param elementName Name of the current element considered
-            //!@param element Object to be created 
             std::string elementName = child->Name();
             SVGElement* element;
 
