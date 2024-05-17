@@ -9,7 +9,7 @@ using namespace tinyxml2;
 
 namespace svg
 {
-    std::vector<SVGElement *> parseGroup(XMLElement* child, vector<SVGElement *>& elements){
+    std::vector<SVGElement *> parseGroup(XMLElement* child, vector<SVGElement *>& elements, vector<pair<std::string, SVGElement *>>& id_pair){
 
         while (child != nullptr){
             std::string elementName = child->Name();
@@ -75,8 +75,19 @@ namespace svg
             } 
             else if(elementName == "g") {
                 std::vector<SVGElement *> elements;
-                elements = parseGroup(child->FirstChildElement(), elements);
+                elements = parseGroup(child->FirstChildElement(), elements, id_pair);
                 element = new Group(elements);
+            }
+            else if(elementName == "use"){
+                std::string href = child->Attribute("href");
+                href = href.substr(1);
+                for(auto& pair : id_pair)
+                {
+                if (pair.first == href)
+                    {
+                    element = pair.second->duplicate(href, pair.second);
+                    }
+                }
             }
 
             //transf
@@ -134,6 +145,10 @@ namespace svg
                         }
             }
             //push back
+            if (child->Attribute("id")){
+            std::string id = child->Attribute("id");
+            id_pair.push_back({id, element});
+            }
             elements.push_back(element);
             child = child->NextSiblingElement();
         }
@@ -204,36 +219,36 @@ namespace svg
                     element = new Line(strokeColor, x1,y1,x2,y2);
             }
             else if (elementName == "polygon") {
-                std::string pointsStr = child->Attribute("points");
-                std::vector<Point> points = parse_points(pointsStr);
-                std::string fill = child->Attribute("fill");
-                Color fillColor = parse_color(fill);
+                    std::string pointsStr = child->Attribute("points");
+                    std::vector<Point> points = parse_points(pointsStr);
+                    std::string fill = child->Attribute("fill");
+                    Color fillColor = parse_color(fill);
 
-                element = new Polygon(fillColor, points);
+                    element = new Polygon(fillColor, points);
             }
             else if (elementName == "rect") {
-                int x = child->IntAttribute("x");
-                int y = child->IntAttribute("y");
-                int width = child->IntAttribute("width");
-                int height = child->IntAttribute("height");
-                std::string fill = child->Attribute("fill");
-                Color fillColor = parse_color(fill);
+                    int x = child->IntAttribute("x");
+                    int y = child->IntAttribute("y");
+                    int width = child->IntAttribute("width");
+                    int height = child->IntAttribute("height");
+                    std::string fill = child->Attribute("fill");
+                    Color fillColor = parse_color(fill);
 
-                element = new Rect(fillColor, x, y, width, height);
+                    element = new Rect(fillColor, x, y, width, height);
             } 
             else if(elementName == "g") {
-                std::vector<SVGElement *> elements;
-                elements = parseGroup(child->FirstChildElement(), elements);
-                element = new Group(elements);
+                    std::vector<SVGElement *> elements;
+                    elements = parseGroup(child->FirstChildElement(), elements, id_pair);
+                    element = new Group(elements);
             }
             else if(elementName == "use"){
-                std::string href = child->Attribute("href");
-                href = href.substr(1);
-                for(auto& pair : id_pair){
-                    if (pair.first == href){
-                        element = pair.second->duplicate(href, pair.second);
+                    std::string href = child->Attribute("href");
+                    href = href.substr(1);
+                    for(auto& pair : id_pair){
+                        if (pair.first == href){
+                            element = pair.second->duplicate(href, pair.second);
+                        }
                     }
-                }
             }
             if(child == nullptr) return;
             
@@ -278,8 +293,6 @@ namespace svg
                             int angle;
                             iss >> angle;
 
-                            
-
                             element->rotate(origin.x, origin.y, angle);
                         }
                         else if(tr.find("scale") != string::npos){
@@ -297,9 +310,6 @@ namespace svg
         if (child->Attribute("id")){
             std::string id = child->Attribute("id");
             id_pair.push_back({id, element});
-        }
-        for(auto& i : id_pair){
-            cout << i.first << endl;
         }
         svg_elements.push_back(element);
         child = child->NextSiblingElement();

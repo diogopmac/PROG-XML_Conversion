@@ -109,6 +109,7 @@ namespace svg
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
             void scale(int origin_x, int origin_y, int value) override;
+            std::vector<SVGElement *> get_elements() {return elements;};
             SVGElement *duplicate(std::string id, SVGElement *elem) override;
         private:
             std::vector<SVGElement *> elements;

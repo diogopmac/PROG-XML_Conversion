@@ -223,7 +223,13 @@ namespace svg
     }
 
     SVGElement *Group::duplicate(std::string id, SVGElement *elem){
-        Group *new_group = new Group(*dynamic_cast<Group*>(elem));
+        Group *group = dynamic_cast<Group*>(elem);
+        std::vector<SVGElement *> members = group->get_elements();
+        std::vector<SVGElement *> new_elements;
+        for(SVGElement *e : elements){
+            new_elements.push_back(e->duplicate(id, e));
+        }
+        Group *new_group = new Group(new_elements);
         return new_group;
     }
 

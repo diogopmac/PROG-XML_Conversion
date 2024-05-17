@@ -54,91 +54,30 @@
 >>>> [54] translate_polyline <<<<
 >>>> [55] translate_rect <<<<
 >>>> [56] use_1 <<<<
-myCircle
-myCircle
-myCircle
 >>>> [57] use_2 <<<<
-c1
-c1
-c2
-c1
-c2
-c1
-c2
-cc
-c1
-c2
-cc
 >>>> [58] use_3 <<<<
-captain_america_shield
-captain_america_shield
-captain_america_shield
-captain_america_shield
-Assertion failed: (y >= 0 && y < height_), function at, file PNGImage.cpp, line 63.
 >>>> [59] use_4 <<<<
-captain_america_shield
-captain_america_shield
-captain_america_shield
-captain_america_shield
-Assertion failed: (x >= 0 && x < width_), function at, file PNGImage.cpp, line 62.
 >>>> [60] use_5 <<<<
 lines
-readSVG.cpp:124:38: runtime error: member call on null pointer of type 'svg::SVGElement'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior readSVG.cpp:124:38 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3153==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010437b724 bp 0x00016bbf0070 sp 0x00016bbee920 T0)
-==3153==The signal is caused by a READ memory access.
-==3153==Hint: address points to the zero page.
-    #0 0x10437b724 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:124
-    #1 0x10438114c in svg::readSVG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, svg::Point&, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:226
-    #2 0x104398a0c in svg::convert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) convert.cpp:11
-    #3 0x104241b18 in svg::TestDriver::run_conversion_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:41
-    #4 0x10421b464 in svg::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:102
-    #5 0x104211260 in svg::TestDriver::run_tests(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:163
-    #6 0x1042100f8 in main test.cpp:181
-    #7 0x19517a0dc  (<unknown module>)
-
-==3153==Register values:
- x[0] = 0x000000016bbee838   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x0000000000000001  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000007000020000   x[9] = 0x0000000000000000  x[10] = 0x000000000000005a  x[11] = 0x0000000000000062  
-x[12] = 0x0000000104cac000  x[13] = 0xffffff0000000000  x[14] = 0x0000000104e79128  x[15] = 0x0000000000000000  
-x[16] = 0x000000030d7d2cd8  x[17] = 0x0000000104d900a0  x[18] = 0x0000000000000000  x[19] = 0x000000016bbef440  
-x[20] = 0x000000010420fc34  x[21] = 0x000000016bbf3760  x[22] = 0x00000001048a9910  x[23] = 0x000000016bbf37e0  
-x[24] = 0x000000016bbf3820  x[25] = 0x00000001951ee2db  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016bbf0070     lr = 0x000000010437b518     sp = 0x000000016bbee920  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV readSVG.cpp:124 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&)
-==3153==ABORTING
+lines
 >>>> [61] use_6 <<<<
-readSVG.cpp:124:38: runtime error: member call on null pointer of type 'svg::SVGElement'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior readSVG.cpp:124:38 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==3155==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010437b724 bp 0x00016bbed1b0 sp 0x00016bbeba60 T0)
-==3155==The signal is caused by a READ memory access.
-==3155==Hint: address points to the zero page.
-    #0 0x10437b724 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:124
-    #1 0x10437a174 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:78
-    #2 0x10437a174 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:78
-    #3 0x10438114c in svg::readSVG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, svg::Point&, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&) readSVG.cpp:226
-    #4 0x104398a0c in svg::convert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) convert.cpp:11
-    #5 0x104241b18 in svg::TestDriver::run_conversion_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:41
-    #6 0x10421b464 in svg::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:102
-    #7 0x104211260 in svg::TestDriver::run_tests(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:163
-    #8 0x1042100f8 in main test.cpp:181
-    #9 0x19517a0dc  (<unknown module>)
-
-==3155==Register values:
- x[0] = 0x000000016bbeb978   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x0000000000000001  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000007000020000   x[9] = 0x0000000000000000  x[10] = 0x00000000ffffffa6  x[11] = 0x0000000000000062  
-x[12] = 0x0000000104cac000  x[13] = 0xffffff0000000000  x[14] = 0x0000000104e79128  x[15] = 0x0000000000000000  
-x[16] = 0x000000030d7d2cd8  x[17] = 0x0000000104d900a0  x[18] = 0x0000000000000000  x[19] = 0x000000016bbec580  
-x[20] = 0x000000010420fc34  x[21] = 0x000000016bbf3760  x[22] = 0x00000001048a9910  x[23] = 0x000000016bbf37e0  
-x[24] = 0x000000016bbf3820  x[25] = 0x00000001951ee2db  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016bbed1b0     lr = 0x000000010437b518     sp = 0x000000016bbeba60  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV readSVG.cpp:124 in svg::parseGroup(tinyxml2::XMLElement*, std::__1::vector<svg::SVGElement*, std::__1::allocator<svg::SVGElement*>>&)
-==3155==ABORTING
+r01
+r01
+r021
+r01
+r021
+r01
+r021
+r01
+r021
+r01
+r021
+r02
+r01
+r021
+r02
+r0
+r01
+r021
+r02
+r0
