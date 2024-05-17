@@ -34,6 +34,7 @@ For element transformations, we implemented abstract functions on all classes to
 - Translate
 - Rotate
 - Scale
+- 
 Each one is treated differently, depending on the class where it is applied to.
 
 We also implemented the reading logic in readSVG that checks the transformations and applies them to the objects.
