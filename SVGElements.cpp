@@ -67,10 +67,6 @@ namespace svg
         return new_ellipse;
     }
 
-    /// @brief Circle constructor, subclass of Ellipse
-    /// @param fill Fill Color
-    /// @param center Circle Center
-    /// @param radius Circle Radius
     Circle::Circle(const Color &fill,
                    const Point &center, 
                    const int radius) 
@@ -215,8 +211,4 @@ namespace svg
         Group *new_group = new Group(new_elements);
         return new_group;
     }
-
-    // @todo provide the implementation of SVGElement derived classes
-    // HERE -->
-
 }

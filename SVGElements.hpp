@@ -62,8 +62,17 @@ namespace svg
     class Ellipse : public SVGElement
     {
     public:
+        /// @brief Constructor
+        /// @param fill Fill Color
+        /// @param center Center
+        /// @param radius_x Radius, X-Axis
+        /// @param radius_y Radius, Y-Axis
         Ellipse(const Color &fill, const Point &center, const int radius_x, const int radius_y);
+
+        /// @brief Copy constructor
+        /// @param copy Ellipse to be copied
         Ellipse(const Ellipse& copy) : SVGElement(copy), fill(copy.fill), center(copy.center), radius_x(copy.radius_x), radius_y(copy.radius_y){}
+
         void draw(PNGImage &img) const override;
         void translate(int x, int y) override;
         void rotate(int origin_x, int origin_y, int angle) override;
@@ -80,14 +89,25 @@ namespace svg
     class Circle : public Ellipse 
     {
         public:
+            /// @brief Constructor
+            /// @param fill Fill Color
+            /// @param center Center
+            /// @param radius_x Radius
             Circle(const Color &fill, const Point &center, const int radius_x); 
             void draw(PNGImage &img) const override;
     };
 
     class Polyline : public SVGElement {
         public:
+            /// @brief Constructor
+            /// @param stroke Stroke Color
+            /// @param points Vector of Points
             Polyline(const Color &stroke, const std::vector<Point>& points);
+
+            /// @brief Copy constructor
+            /// @param copy Polyline to be copied
             Polyline(const Polyline& copy) : SVGElement(copy), stroke(copy.stroke), points(copy.points) {}
+
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
@@ -100,14 +120,27 @@ namespace svg
 
     class Line : public Polyline {
         public:
+            /// @brief Constructor
+            /// @param stroke Stroke color
+            /// @param x1 Point 1, X-Axis
+            /// @param y1 Point 1, Y-Axis
+            /// @param x2 Point 2, X-Axis
+            /// @param y2 Point 2, Y-Axis
             Line(const Color &stroke, const int x1, const int y1, const int x2, const int y2);
             void draw(PNGImage &img) const override;
     };
 
     class Polygon : public SVGElement{
         public:
+            /// @brief Constructor
+            /// @param fill Fill Color
+            /// @param points Vector of points
             Polygon(const Color &fill, const std::vector<Point>& points);
+
+            /// @brief Copy constructor
+            /// @param copy Polygon to be copied
             Polygon(const Polygon& copy) : SVGElement(copy), fill(copy.fill), points(copy.points) {}
+
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
@@ -120,19 +153,34 @@ namespace svg
 
     class Rect : public Polygon{
         public:
+            /// @brief Constructor
+            /// @param fill Fill Color
+            /// @param x Upper-Left point, X-Axis
+            /// @param y Upper-Left point, Y-Axis
+            /// @param width Rectangle Width
+            /// @param height Rectangle Height
             Rect(const Color &fill, int x, int y, int width, int height);
             void draw(PNGImage &img) const override;
     };
 
     class Group : public SVGElement {
         public:
+            /// @brief Constructor
+            /// @param elements Vector of SVGElement
             Group(std::vector<SVGElement *> elements);
+
+            /// @brief Copy constructor
+            /// @param copy Group to be copied
             Group(const Group& copy) : SVGElement(copy), elements(copy.elements) {}
             void draw(PNGImage &img) const override;
             void translate(int x, int y) override;
             void rotate(int origin_x, int origin_y, int angle) override;
             void scale(int origin_x, int origin_y, int value) override;
+
+            /// @brief Getter
+            /// @return Vector of SVGElement
             std::vector<SVGElement *> get_elements() {return elements;};
+            
             SVGElement *duplicate(std::string id, SVGElement *elem) override;
         private:
             std::vector<SVGElement *> elements;
