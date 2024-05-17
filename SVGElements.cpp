@@ -8,9 +8,6 @@ namespace svg
     SVGElement::SVGElement() {}
     SVGElement::~SVGElement() {}
 
-    /// @brief Function to parse a string of int values separated by a blank space, and put it in a vector of Point{x, y}
-    /// @param point_string String of different points, of the type "x y x y x y"
-    /// @return returns a vector of Point values
     std::vector<Point> parse_points(std::string& point_string){
         std::vector<Point> ret;
         remove_commas(point_string);
@@ -23,8 +20,6 @@ namespace svg
         return ret;
     }
 
-    /// @brief Removes commas of a given string. Used in point parsing.
-    /// @param str Given string
     void remove_commas(std::string& str){
         for (char &c : str)
         {
@@ -35,11 +30,6 @@ namespace svg
         }
     }
 
-    /// @brief Ellipse Constructor
-    /// @param fill Fill Color
-    /// @param center Ellipse center
-    /// @param radius_x Radius in X-Axis
-    /// @param radius_y Radius in Y-Axis
     Ellipse::Ellipse(const Color &fill,
                      const Point &center,
                      const int radius_x, 
@@ -48,26 +38,17 @@ namespace svg
     {
     }
 
-    /// @brief Ellipse draw function, provided
-    /// @param img PNG Image 
     void Ellipse::draw(PNGImage &img) const
     {
         img.draw_ellipse(center, Point{radius_x, radius_y}, fill);
     }
 
-    //Ellipse Translate Tranformation
-    //!@param x X-Axis deviation
-    //!@param y Y-Axis deviation
     void Ellipse::translate(int x, int y) 
     {
         center.x += x;
         center.y += y;
     }
 
-    /// @brief Ellipse Rotation Transformation
-    /// @param origin_x Rotation Origin, X-Axis
-    /// @param origin_y Rotation Origin, Y-Axis
-    /// @param angle Rotation Angle, in degrees 
     void Ellipse::rotate(int origin_x, int origin_y, int angle) 
     {
         Point rotate_origin = Point{origin_x, origin_x};

@@ -12,6 +12,6 @@ Identify all group elements (numbers and names).
 
 ## Accomplished tasks
 
-Brief summary of what you implemented.
+
 
 

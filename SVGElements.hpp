@@ -14,19 +14,43 @@ namespace svg
     public:
         SVGElement();
         virtual ~SVGElement();
+
+        /// @brief Draws an element in a PNG file
+        /// @param img PNG image
         virtual void draw(PNGImage &img) const = 0;
+
+        /// @brief Translates an element, already drawn
+        /// @param x X-Coordinate to be moved
+        /// @param y Y-Coordinate to be moved
         virtual void translate(int x, int y) = 0;
+
+        /// @brief Rotates an element, through an origin
+        /// @param origin_x Rotation origin, X-Axis
+        /// @param origin_y Rotation origin, Y-Axis
+        /// @param angle Angle of rotation
         virtual void rotate(int origin_x, int origin_y, int angle) = 0;
+
+        /// @brief Scales an element, through an origin
+        /// @param origin_x Scaling origin, X-Axis
+        /// @param origin_y Scaling origin, Y-Axis
+        /// @param value Scaling value
         virtual void scale(int origin_x, int origin_y, int value) = 0;
+
+        /// @brief Duplicates an element
+        /// @param id ID of an element
+        /// @param elem Element 
+        /// @return Returns an SVGElement duplicated
         virtual SVGElement *duplicate(std::string id, SVGElement *elem) = 0;
     };
 
-    // Declaration of namespace functions
-    // readSVG -> implement it in readSVG.cpp
-    // convert -> already given (DO NOT CHANGE) in convert.cpp
-
+    /// @brief Function to parse a string of int values separated by a blank space, and put it in a vector of Point{x, y}
+    /// @param point_string String of different points, of the type "x y x y x y"
+    /// @return returns a vector of Point values
     std::vector<Point> parse_points(std::string& point_string);
 
+
+    /// @brief Removes commas of a given string. Used in point parsing.
+    /// @param str Given string
     void remove_commas(std::string& str);
 
     void readSVG(const std::string &svg_file,
@@ -57,7 +81,6 @@ namespace svg
     {
         public:
             Circle(const Color &fill, const Point &center, const int radius_x); 
-            //WARNING: Circle is derived of Ellipse, when doing constructor get the default constructor from Ellipse
             void draw(PNGImage &img) const override;
     };
 

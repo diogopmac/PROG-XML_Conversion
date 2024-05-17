@@ -161,7 +161,10 @@ namespace svg
         return elements;
     }
 
-
+    /// @brief Reads an SVG file and creates a vector of objects
+    /// @param svg_file SVG file
+    /// @param dimensions Dimmensions of the generated file
+    /// @param svg_elements Vector of SVGElements
     void readSVG(const string& svg_file, Point& dimensions, vector<SVGElement *>& svg_elements)
     {
         XMLDocument doc;
@@ -175,6 +178,7 @@ namespace svg
         dimensions.x = xml_elem->IntAttribute("width");
         dimensions.y = xml_elem->IntAttribute("height");
 
+        // Vector of Id of an Element and the corresponding element, for "Use" type usage.
         std::vector<std::pair<std::string, SVGElement *>> id_pair;
         
         XMLElement *child = xml_elem->FirstChildElement(); //Changed from svg_elem
@@ -256,7 +260,6 @@ namespace svg
                     }
                 }
             }
-            if(child == nullptr) return;
             
             //transf
             if (child->Attribute("transform")){
